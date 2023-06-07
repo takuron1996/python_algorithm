@@ -36,6 +36,24 @@ class Operator(IntEnum):
     MUL = 3
     DIV = 4
 
+    @classmethod
+    def get_operator_method(cls, value: int):
+        """演算子に対応した関数を返却
+
+        Args:
+            value (int): 演算子の数値
+
+        Returns:
+            演算子に対応した関数
+        """
+        operator = {
+            cls.ADD: lambda x, y: x + y,
+            cls.SUB: lambda x, y: x - y,
+            cls.MUL: lambda x, y: x * y,
+            cls.DIV: lambda x, y: x // y,
+        }
+        return operator.get(value)
+
 
 def calc_empty(signs: list[int]):
     """空白部分の計算処理
@@ -57,6 +75,36 @@ def calc_empty(signs: list[int]):
 
         if signs[i] == Operator.EMPTY:
             val = val * 10 + next_val
+        else:
+            new_vals.append(val)
+            new_signs.append(signs[i])
+            val = next_val
+    new_vals.append(val)
+    return (new_vals, new_signs)
+
+
+def calc_mul_div(vals: list[int], signs: list[int]):
+    """掛け算、割り算の部分の計算処理
+
+    Args:
+        vals (list[int]): 計算する数値
+        signs (list[int]): 演算子を数字で表現したリスト
+
+    Returns:
+        tuple(list[int], list[int]): (数値, 演算子)
+    """
+    new_vals = []
+    new_signs = []
+
+    # 途中経過の値
+    val = vals[0]
+
+    for i in range(len(signs)):
+        next_val = vals[i + 1]
+
+        if signs[i] in (Operator.MUL, Operator.DIV):
+            operator_method = Operator.get_operator_method(signs[i])
+            val = operator_method(val, next_val)
         else:
             new_vals.append(val)
             new_signs.append(signs[i])
