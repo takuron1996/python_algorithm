@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf_8 -*-
-"""テンパズル 〜力任せ探索
-"""
+"""テンパズル 〜力任せ探索"""
 
 from enum import Enum
 
@@ -22,7 +21,7 @@ class Operator(Enum):
     DIV = ("/", lambda x, y: x / y)
 
     @classmethod
-    def get_operator_method(cls, value):
+    def get_operator_method(cls, value: str):
         """演算子に対応するメソッドを返却
 
         Args:
@@ -37,7 +36,7 @@ class Operator(Enum):
         return None
 
     @classmethod
-    def is_operator(cls, value):
+    def is_operator(cls, value: str):
         """演算子かどうかを判定
 
         Args:

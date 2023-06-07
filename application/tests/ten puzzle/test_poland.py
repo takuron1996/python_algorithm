@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf_8 -*-
+
 import pytest
 
 from algorithm.ten_puzzle.poland import calc_poland, decode_poland
