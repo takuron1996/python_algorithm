@@ -111,3 +111,22 @@ def calc_mul_div(vals: list[int], signs: list[int]):
             val = next_val
     new_vals.append(val)
     return (new_vals, new_signs)
+
+
+def calc_add_sub(vals: list[int], signs: list[int]):
+    """足し算、引き算の部分の計算処理
+
+    Args:
+        vals (list[int]): 計算する数値
+        signs (list[int]): 演算子を数字で表現したリスト
+
+    Returns:
+        tuple(list[int], list[int]): (数値, 演算子)
+    """
+    result = vals[0]
+
+    for i in range(len(signs)):
+        next_val = vals[i + 1]
+        operator_method = Operator.get_operator_method(signs[i])
+        result = operator_method(result, next_val)
+    return result
